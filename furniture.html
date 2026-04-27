@@ -14,7 +14,7 @@
   <!-- Navigation -->
   <nav class="navbar">
     <div class="container nav-container">
-      <a href="index.html" class="logo">Mntambo Services</a>
+      <a href="index.html" class="logo"><img src="images/logo/logo.png" alt="Mntambo Services" style="height: 40px; width: auto; vertical-align: middle;"></a>
       <ul class="nav-menu">
         <li><a href="index.html#home">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -43,37 +43,14 @@
   <!-- Gallery -->
   <section class="section">
     <div class="container">
-      <div class="services-grid">
-        <div class="service-card">
-          <i class="fas fa-desktop" style="font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
-          <h3>Reception Desks</h3>
-          <p>Premium reception solutions for modern offices</p>
-        </div>
-        <div class="service-card">
-          <i class="fas fa-couch" style="font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
-          <h3>Executive Sofas</h3>
-          <p>Luxury seating for reception and offices</p>
-        </div>
-        <div class="service-card">
-          <i class="fas fa-chair" style="font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
-          <h3>Office Chairs</h3>
-          <p>Ergonomic chairs for all-day comfort</p>
-        </div>
-        <div class="service-card">
-          <i class="fas fa-table" style="font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
-          <h3>Conference Tables</h3>
-          <p>Custom tables for meetings and boardrooms</p>
-        </div>
-        <div class="service-card">
-          <i class="fas fa-briefcase" style="font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
-          <h3>Executive Desks</h3>
-          <p>Professional workspaces designed for leaders</p>
-        </div>
-        <div class="service-card">
-          <i class="fas fa-book-open" style="font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
-          <h3>Bookshelves</h3>
-          <p>Stylish storage for modern offices</p>
-        </div>
+      <!-- Sticky Filter Bar -->
+      <div id="category-filters" style="display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap; position: sticky; top: 80px; background: rgba(255,255,255,0.8); padding: 1rem; z-index: 10; border-radius: 30px; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+        <!-- Filters populated dynamically -->
+        <button class="filter-btn" style="padding: 0.5rem 1.2rem; border: none; border-radius: 20px; background: var(--primary); color: white; cursor: pointer; font-weight: 500;">All</button>
+      </div>
+
+      <div class="services-grid" id="product-gallery">
+        <!-- Products will be loaded dynamically -->
       </div>
     </div>
   </section>

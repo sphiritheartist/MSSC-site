@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Mntambo Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Admin specific styles */
+    .admin-container { padding: 4rem 1rem; max-width: 1200px; margin: 0 auto; }
+    .admin-tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; }
+    .admin-tab { cursor: pointer; padding: 0.5rem 1rem; border-radius: 4px; font-weight: 500; }
+    .admin-tab.active { background: var(--primary); color: white; }
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+    .login-box { max-width: 400px; margin: 4rem auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    th { background: #f8fafc; font-weight: 600; }
+    .delete-btn { color: red; cursor: pointer; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  </style>
+</head>
+<body style="background: #f1f5f9; min-height: 100vh;">
+  <!-- Navigation Minimal -->
+  <nav class="navbar" style="position: sticky; top: 0; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+    <div class="container nav-container">
+      <a href="index.html" class="logo"><img src="images/logo/logo.png" alt="Mntambo Admin" style="height: 40px; width: auto; vertical-align: middle;"></a>
+      <button id="logout-btn" class="btn" style="padding: 0.5rem 1rem; display: none;">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Login Area -->
+  <div id="login-area" class="login-box">
+    <h3>Admin Login</h3>
+    <p style="margin-bottom: 1rem; color: #64748b;">Please sign in to access the dashboard.</p>
+    <form id="login-form">
+      <div class="form-group">
+        <input type="password" id="admin-password" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+      <p id="login-error" style="color: red; margin-top: 1rem; display: none;">Invalid password.</p>
+    </form>
+  </div>
+
+  <!-- Dashboard Area -->
+  <div id="dashboard-area" class="admin-container" style="display: none; background: white; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+    <div class="admin-tabs">
+      <div class="admin-tab active" data-target="panel-analytics"><i class="fas fa-chart-line"></i> Analytics</div>
+      <div class="admin-tab" data-target="panel-products"><i class="fas fa-couch"></i> Products</div>
+      <div class="admin-tab" data-target="panel-messages"><i class="fas fa-envelope"></i> Messages</div>
+    </div>
+
+    <!-- Analytics Panel -->
+    <div id="panel-analytics" class="admin-panel active">
+      <h2>Site Engagement</h2>
+      <p style="color: #64748b; margin-bottom: 1.5rem;">Track views and interactions across your site.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Event Type</th>
+            <th>Page</th>
+            <th>Total Count</th>
+          </tr>
+        </thead>
+        <tbody id="analytics-body">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Products Panel -->
+    <div id="panel-products" class="admin-panel">
+      <h2>Manage Catalogue</h2>
+      <p style="color: #64748b; margin-bottom: 1.5rem;">Add new furniture items to the catalogue.</p>
+      
+      <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3>Add New Product</h3>
+        <form id="product-form" style="margin-top: 1rem;">
+          <div class="form-grid">
+            <div class="form-group">
+              <input type="text" name="title" placeholder="Product Title" required>
+            </div>
+            <div class="form-group">
+              <input type="text" name="type" list="type-options" required placeholder="Category (e.g., Couches, Desks)" style="width: 100%; padding: 0.8rem; border: 1px solid #e2e8f0; border-radius: 4px; font-family: inherit;">
+              <datalist id="type-options"></datalist>
+            </div>
+            <div class="form-group">
+              <input type="text" name="price" placeholder="Price (e.g., R 4,500)">
+            </div>
+            <div class="form-group">
+              <input type="text" name="colour" placeholder="Colour Options">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <input type="text" name="material" placeholder="Material">
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea name="description" placeholder="Product Description" rows="3" required></textarea>
+          </div>
+          <div class="form-group">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Product Image</label>
+            <input type="file" name="image" accept="image/*" required>
+          </div>
+          <button type="submit" class="btn" style="background: var(--accent);">Upload Product</button>
+        </form>
+      </div>
+
+      <h3>Current Catalogue</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Details</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="products-body">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Messages Panel -->
+    <div id="panel-messages" class="admin-panel">
+      <h2>Contact Messages</h2>
+      <p style="color: #64748b; margin-bottom: 1.5rem;">Messages received via the contact form.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody id="messages-body">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="edit-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: white; padding: 2rem; border-radius: 8px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="margin: 0;">Edit Product</h3>
+        <i class="fas fa-times" style="cursor: pointer; font-size: 1.2rem;" onclick="document.getElementById('edit-modal').style.display='none'"></i>
+      </div>
+      <form id="edit-form">
+        <input type="hidden" id="edit-id" name="id">
+        <div class="form-grid">
+          <div class="form-group">
+            <input type="text" id="edit-title" name="title" placeholder="Product Title" required>
+          </div>
+          <div class="form-group">
+            <input type="text" id="edit-type" name="type" list="edit-type-options" required placeholder="Category" style="width: 100%; padding: 0.8rem; border: 1px solid #e2e8f0; border-radius: 4px; font-family: inherit;">
+            <datalist id="edit-type-options"></datalist>
+          </div>
+          <div class="form-group">
+            <input type="text" id="edit-price" name="price" placeholder="Price (e.g., R 4,500)">
+          </div>
+          <div class="form-group">
+            <input type="text" id="edit-colour" name="colour" placeholder="Colour Options">
+          </div>
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <input type="text" id="edit-material" name="material" placeholder="Material">
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea id="edit-description" name="description" placeholder="Product Description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Update Image (Optional)</label>
+          <input type="file" name="image" accept="image/*">
+        </div>
+        <button type="submit" class="btn" style="background: var(--accent); width: 100%;">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
